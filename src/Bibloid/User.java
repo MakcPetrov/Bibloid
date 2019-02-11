@@ -10,9 +10,13 @@ public class User { //свойства клиента TODO внести сюда
         return online;
     }
 
-//    void setOnline(boolean online) {
-//        this.online = online;
-//    }
+    void setOnline() {
+        this.online = true;
+    }
+
+    void setOffline() {
+        this.online = false;
+    }
 
     String getNick() {
         return nick;
@@ -32,20 +36,20 @@ public class User { //свойства клиента TODO внести сюда
 
     void auth(String login, String password) {
         //TODO запрос к базе (AUTH + " " + login + " " + password);, а пока всё счиитаем ОК
+        if (Vars.debug_mode) System.out.println(login + password);
         if (login.equals("bib") && password.equals("71"))
         {//логин успешен
             nick = "Гыук"; //заглушка
-            online = true; //заглушка
-            admin = true;  //заглушка
+            online = true;
+            admin = true;
+            if (Vars.debug_mode) System.out.println("OK");
         }//логин успешен
         else
         {//логин неуспешен
             nick = ""; //заглушка
-            online = false; //заглушка
-            admin = false;  //заглушка
-        }//логин успешен
-
+            online = false;
+            admin = false;
+            if (Vars.debug_mode) System.out.println("DEN");
+        }//логин неуспешен
     }
-
-
 }//User
