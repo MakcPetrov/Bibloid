@@ -23,31 +23,34 @@ class MainWin extends JFrame { //стартовое окно
         loginPanel = new JPanel(new GridLayout(1, 3));
         JTextField login = new JTextField();
         JPasswordField password = new JPasswordField();
-        password.addActionListener(new ActionListener() {//что делать с введенным
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                user.auth(login.getText(), new String(password.getPassword()));
-                //login.setText(""); оставляем логин
-                password.setText("");
-            }
+        //что делать с введенным
+        password.addActionListener(e -> {
+            user.auth(login.getText(), new String(password.getPassword()));
+            //login.setText(""); оставляем логин
+            password.setText("");
         });//password.ActionListener
 
-        JButton authIn = new JButton("Login");
-        authIn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                user.auth(login.getText(), new String(password.getPassword()));
-                //login.setText(""); оставляем логин
-                password.setText("");
-            }
-        });
+        JButton authIn = new JButton("Login");//кнопка авторизации
+        authIn.addActionListener(e -> {
+            user.auth(login.getText(), new String(password.getPassword()));
+            //login.setText(""); оставляем логин
+            password.setText("");
+        });//кнопка авторизации
+
         loginPanel.add(login);
         loginPanel.add(password);
         loginPanel.add(authIn);
+
+        //рабочая панель
+        workPanel = new JPanel(new GridLayout(20, 3));
+        JTextField username = new JTextField();
+        username.setText(user.getNick());
+        workPanel.add(username);
         //панель команд
         //controlPanel = new JPanel(new GridLayout(1, 2));//сюда складываем элементы управления
 
-//        add(workPanel, BorderLayout.CENTER);//главное окно занимает весь бокс
+
+        add(workPanel, BorderLayout.CENTER);//главное окно занимает весь бокс
         add(loginPanel, BorderLayout.NORTH);//сверху панель логина
         //add(controlPanel, BorderLayout.SOUTH);//снизу элементы ввода
         switchWindows(user);//включаем в актуальный режим
@@ -58,7 +61,7 @@ class MainWin extends JFrame { //стартовое окно
     private void switchWindows(User user) {//меняем вид окна при подключении-отключении
         setTitle(user.getNick());//меняем имя окна
         loginPanel.setVisible(!user.isOnline());//показывать, если юзера нет
-//        workPanel.setVisible(user.isOnline());//показывать, если юзер онлайн
+        workPanel.setVisible(user.isOnline());//показывать, если юзер онлайн
     }//switchWindows
 
 
