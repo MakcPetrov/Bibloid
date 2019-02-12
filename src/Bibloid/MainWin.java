@@ -13,6 +13,7 @@ class MainWin extends JFrame { //стартовое окно
 
     MainWin(){
         User user = new User();//создать экземпляр пользака
+        DataMan data = new DataMan();//База
 
         //описание основного окна программы
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

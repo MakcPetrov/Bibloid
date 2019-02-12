@@ -29,7 +29,7 @@ class DataMan {//Менеджер базы данных TODO сделать ба
         }
     }//конструктор + подключение к БД
 
-    public boolean checkUser(String login, String password){//User & passwd
+    boolean checkUser(String login, String password){//User & passwd
         //password = password;//здесь можно вставить шифрование пароля для хранения в базе
         ResultSet outBD = runQuery("SELECT pswd FROM clients WHERE login = '"+login+"'");
         try {
@@ -39,6 +39,7 @@ class DataMan {//Менеджер базы данных TODO сделать ба
         }
         return false;//User not found or password failure
     }//проверить пароль у юзера, при любой ошибке false
+
 
     public int getUserQuote(String login) {//сколько места доступно для юзера
         ResultSet outBD = runQuery("SELECT quote FROM clients WHERE login = '"+login+"'");

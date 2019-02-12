@@ -1,5 +1,8 @@
 package Bibloid;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 public class User { //свойства клиента TODO внести сюда чтение из базы юзеров
 
     private boolean online;//прошёл проверку
@@ -36,8 +39,10 @@ public class User { //свойства клиента TODO внести сюда
 
     void auth(String login, String password) {
         //TODO запрос к базе (AUTH + " " + login + " " + password);, а пока всё счиитаем ОК
+        String psh="71";
         if (Vars.debug_mode) System.out.println(login + password);
-        if (login.equals("bib") && password.equals("71"))
+
+        if (DataMan.checkUser)
         {//логин успешен
             nick = "Гыук"; //заглушка
             online = true;
@@ -52,4 +57,6 @@ public class User { //свойства клиента TODO внести сюда
             if (Vars.debug_mode) System.out.println("DEN");
         }//логин неуспешен
     }
+
+
 }//User
