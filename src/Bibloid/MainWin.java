@@ -11,15 +11,15 @@ class MainWin extends JFrame { //стартовое окно
     private JPanel loginPanel;//панель авторизации
     private JPanel controlPanel;//панель команд
 
-    MainWin(){
-        User user = new User();//создать экземпляр пользака
-        DataMan data = new DataMan();//База
+    MainWin(User user,DataMan dataMan){
 
         //описание основного окна программы
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setSize(600, 400);
         setLocationRelativeTo(null);
         setResizable(true);//а пусть будет
+
+
 
         //панель авторизации
         loginPanel = new JPanel(new GridLayout(1, 3));

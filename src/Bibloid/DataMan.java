@@ -7,11 +7,25 @@ class DataMan {//Менеджер базы данных TODO сделать ба
     private Connection connect;
     private Statement statement;
 
-    //TODO: сделать лог-файл if (Vars.debug_mode)
+//TODO: сделать лог-файл if (Vars.debug_mode)
 
     //TODO: сделать проверку "если нет - то создать"
     private boolean newBase=false;
     private boolean failure=false;
+
+    public boolean checkUser(String login, String password)
+    {//User & passwd
+        //password = password;//здесь можно вставить шифрование пароля для хранения в базе
+        ResultSet outBD = runQuery("SELECT pswd FROM clients WHERE login = '"+login+"'");
+        try {
+            if (outBD !=null && outBD.next()&& password.equals(outBD.getString("pswd")))
+
+                return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;//User not found or password failure
+    }//проверить пароль у юзера, при любой ошибке false
 
     DataMan() {//конструктор + подключение к БД
         try {
@@ -28,17 +42,6 @@ class DataMan {//Менеджер базы данных TODO сделать ба
             e.printStackTrace();
         }
     }//конструктор + подключение к БД
-
-    boolean checkUser(String login, String password){//User & passwd
-        //password = password;//здесь можно вставить шифрование пароля для хранения в базе
-        ResultSet outBD = runQuery("SELECT pswd FROM clients WHERE login = '"+login+"'");
-        try {
-            if (outBD !=null && outBD.next()&& password.equals(outBD.getString("pswd"))) return true;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return false;//User not found or password failure
-    }//проверить пароль у юзера, при любой ошибке false
 
 
     public int getUserQuote(String login) {//сколько места доступно для юзера
