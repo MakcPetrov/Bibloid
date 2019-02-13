@@ -6,9 +6,10 @@ import static Bibloid.DataMan.*;
 
 public class User { //свойства клиента TODO внести сюда чтение из базы юзеров
 
+    DataMan dataMan;
 
     public User(DataMan data) {
-        DataMan dataMan=data;
+        dataMan=data;
     }
 
     private boolean online;//прошёл проверку
@@ -48,7 +49,7 @@ public class User { //свойства клиента TODO внести сюда
         String psh="71";
         if (Vars.debug_mode) System.out.println(login + password);
 
-        if (checkUser(login, password))
+        if (dataMan.checkUser(login, password))
         {//логин успешен
             nick = "Гыук"; //заглушка
             online = true;
@@ -63,6 +64,10 @@ public class User { //свойства клиента TODO внести сюда
             if (Vars.debug_mode) System.out.println("DEN");
         }//логин неуспешен
     }
+
+//    private boolean checkUser(String login, String password) {
+//        return dataMan.checkUser(login,password);
+//    }
 
 
 }//User
