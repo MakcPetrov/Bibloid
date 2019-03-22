@@ -48,7 +48,7 @@ public class User { //свойства клиента TODO внести сюда
         String psh="71";
         if (Vars.debug_mode) System.out.println(login + password);
 
-        if (DataMan.getInstance().checkUser(login, password))
+        if (checkUser(login, password))
         {//логин успешен
             nick = "Гыук"; //заглушка
             online = true;

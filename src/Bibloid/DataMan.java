@@ -20,7 +20,6 @@ class DataMan {//Менеджер базы данных TODO сделать ба
         ResultSet outBD = runQuery("SELECT pswd FROM clients WHERE login = '"+login+"'");
         try {
             if (outBD !=null && outBD.next()&& password.equals(outBD.getString("pswd")))
-
                 return true;
         } catch (SQLException e) {
             e.printStackTrace();
