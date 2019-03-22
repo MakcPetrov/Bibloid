@@ -3,6 +3,7 @@ package Bibloid;
 import java.sql.*;
 
 class DataMan {//Менеджер базы данных TODO сделать базы библиотеки, а не того, что есть
+    private static volatile DataMan instance;
 
     private Connection connect;
     private Statement statement;
@@ -10,7 +11,7 @@ class DataMan {//Менеджер базы данных TODO сделать ба
 //TODO: сделать лог-файл if (Vars.debug_mode)
 
     //TODO: сделать проверку "если нет - то создать"
-    private boolean newBase=false;
+    private boolean newBase=true;
     private boolean failure=false;
 
     public boolean checkUser(String login, String password)
@@ -27,7 +28,7 @@ class DataMan {//Менеджер базы данных TODO сделать ба
         return false;//User not found or password failure
     }//проверить пароль у юзера, при любой ошибке false
 
-    DataMan() {//конструктор + подключение к БД
+    private DataMan() {//конструктор + подключение к БД
         try {
             Class.forName("org.sqlite.JDBC");
             connect = DriverManager.getConnection("jdbc:sqlite:"+ Vars.BDpath);
@@ -42,6 +43,20 @@ class DataMan {//Менеджер базы данных TODO сделать ба
             e.printStackTrace();
         }
     }//конструктор + подключение к БД
+
+    public static DataMan getInstance() {
+        DataMan localInstance = instance;
+        if (localInstance == null) {
+            synchronized (DataMan.class) {
+                localInstance = instance;
+                if (localInstance == null) {
+                    instance = localInstance = new DataMan();
+                }
+            }
+        }
+        return localInstance;
+    }
+
 
 
     public int getUserQuote(String login) {//сколько места доступно для юзера
