@@ -1,4 +1,4 @@
 package Bibloid;
 
-public class UserList {
+public class UserList {//заглушка
 }
